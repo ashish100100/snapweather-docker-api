@@ -1,9 +1,14 @@
 
+
 import os
+import secrets
 import requests
 from flask import Flask, jsonify, request
 
 app = Flask(__name__)
+
+# Load SECRET_KEY from Snapdeploy env. If not set, generate a random one
+app.config["SECRET_KEY"] = os.environ.get("SECRET_KEY", secrets.token_hex(32))
 
 @app.route("/")
 def home():
@@ -11,7 +16,7 @@ def home():
 
 @app.route("/weather")
 def weather():
-    city = request.args.get("city", "Majitha") # default to your city
+    city = request.args.get("city", "Majitha")
     url = f"https://wttr.in/{city}?format=j1"
 
     try:
