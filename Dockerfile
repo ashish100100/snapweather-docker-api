@@ -1,13 +1,13 @@
-FROM python:3.10-slim
+FROM python:3.11-slim
 
 WORKDIR /app
 
-COPY requirements.txt .
+COPY requirements.txt.
 RUN pip install --no-cache-dir -r requirements.txt
 
-COPY . .
+COPY..
 
-EXPOSE 8000
+EXPOSE 3000
 
-CMD ["uvicorn", "main.py:app", "--host", "0.0.0.0", "--port", "8000"]
+CMD ["gunicorn", "-b", "0.0.0.0:3000", "main:app"]
 
