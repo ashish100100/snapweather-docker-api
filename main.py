@@ -10,6 +10,11 @@ def home():
     return "Weather API is running ☁️ Use /weather?city=Ludhiana"
 
 @app.route("/weather")
+
+if __name__ == "__main__":
+    port = int(os.environ.get("PORT", 3000))  # Snapdeploy sets PORT automatically
+    app.run(host="0.0.0.0", port=port)
+    
 def weather():
     city = request.args.get("city", "Ludhiana")
     url = f"https://wttr.in/{city}?format=j1"
